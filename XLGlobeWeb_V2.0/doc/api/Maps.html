@@ -352,7 +352,7 @@
                           default:0
                           </code>
                             </td>
-                            <td class="break-word"><span>地图的初始倾斜（倾斜），以远离屏幕平面（0-60）的角度测量。如果constructor options中没有指定pitch， RJMapGL
+                            <td class="break-word"><span>地图的初始倾斜（倾斜），以远离屏幕平面（0-60）的角度测量。如果constructor options中没有指定pitch， XLMapGL
                   JS将在map的style对象中查找它。如果样式中没有指定它，它将默认为0。
                 </span></td>
                         </tr>
@@ -463,7 +463,7 @@
 
 
         <span class="hljs-keyword">var</span> map = {
-          <span class="hljs-keyword">new</span> <span class="hljs-attr">RJMapGL.Map</span>({
+          <span class="hljs-keyword">new</span> <span class="hljs-attr">XLMapGL.Map</span>({
             <span class="hljs-keyword">container</span> : map,
             <span class="hljs-keyword">style</span> : url ,
             <span class="hljs-keyword">touchZoomRotate</span> : true,
@@ -1249,7 +1249,7 @@
                     <pre class="p1 overflow-auto round fill-light">
             //查找一个点的所有要素
             <span class="hljs-keyword">var</span> features = {
-              <span class="hljs-keyword">new</span> <span class="hljs-keyword">RJMap.Map.queryRenderedFeatrues</span>({
+              <span class="hljs-keyword">new</span> <span class="hljs-keyword">XLMap.Map.queryRenderedFeatrues</span>({
                 [20,35],
                 { <span class="hljs-keyword">layers</span> : ['my-layer-name'],
               )
@@ -1258,7 +1258,7 @@
                     <pre class="p1 overflow-auto round fill-light">
             //查找一个静态边界盒子里的所有要素
             <span class="hljs-keyword">var</span> features = {
-              <span class="hljs-keyword">new</span> <span class="hljs-keyword">RJMap.Map.queryRenderedFeatrues</span>({
+              <span class="hljs-keyword">new</span> <span class="hljs-keyword">XLMap.Map.queryRenderedFeatrues</span>({
                 [20,35],[30,50]
                 { <span class="hljs-keyword">layers</span> : ['my-layer-name'],
               )
@@ -1269,7 +1269,7 @@
             <span class="hljs-keyword">var</span> width = 10;
             <span class="hljs-keyword">var</span> width = 10;
             <span class="hljs-keyword">var</span> features = {
-              <span class="hljs-keyword">new</span> <span class="hljs-keyword">RJMap.Map.queryRenderedFeatrues</span>({
+              <span class="hljs-keyword">new</span> <span class="hljs-keyword">XLMap.Map.queryRenderedFeatrues</span>({
                 [point.x - width / 2, point.y - height / 2],
                 [point.x + width / 2, point.y + height / 2]
                 { <span class="hljs-keyword">layers</span> : ['my-layer-name'],
@@ -1279,7 +1279,7 @@
                     <pre class="p1 overflow-auto round fill-light">
             //查询单个图层的所有渲染要素
             <span class="hljs-keyword">var</span> features = {
-              <span class="hljs-keyword">new</span> <span class="hljs-keyword">RJMap.Map.queryRenderedFeatrues</span>({
+              <span class="hljs-keyword">new</span> <span class="hljs-keyword">XLMap.Map.queryRenderedFeatrues</span>({
                 { <span class="hljs-keyword">layers</span> : ['my-layer-name'],
               )
           </pre>
@@ -1341,7 +1341,7 @@
                             default:true
                             </code>
                       </td>
-                      <td class="break-word"><span>检查 [parameters.filter] 是否符合 RJMapGL Style
+                      <td class="break-word"><span>检查 [parameters.filter] 是否符合 XLMapGL Style
                           Specification。禁用校验是一种性能优化，只有在您之前校验了将要传递给该函数的值之后，才应该使用这种优化。
                         </span></td>
                     </tr>
@@ -1821,7 +1821,7 @@
                                                     <div class="prose">
                                                         <div class="space-bottom0">
                                                             <div>
-                                                                <span class="code bold">Array</span> <code class="quiet">((Object | CustomLayerInterface))</code> 需要添加的样式图层，符合 RJMapGL 样式规范的 图层定义 。
+                                                                <span class="code bold">Array</span> <code class="quiet">((Object | CustomLayerInterface))</code> 需要添加的样式图层，符合 XLMapGL 样式规范的 图层定义 。
                                                             </div>
                                                             <div>
                                                                 <span class="code bold">beforeId</span> <code class="quiet">(string)</code> 用来插入新图层的现有图层 ID。 如果该参数（argument）被省略，该图层将会被添加到图层数组的末尾。
@@ -1847,14 +1847,14 @@
       </div>
       <div class="clearfix display-none toggle-target">
         <section class="p2 mb2 clearfix bg-white minishadow">
-          <p>添加一个 RJMapGL 样式的图层 到地图样式。
+          <p>添加一个 XLMapGL 样式的图层 到地图样式。
             图层为来自特定数据源的数据定义样式。</p>
           <div class="py1 quiet mt1 prose-big">parameters</div>
           <div class="prose">
             <div class="space-bottom0">
               <div>
                 <span class="code bold">Array</span> <code class="quiet">((Object | CustomLayerInterface))</code>
-                需要添加的样式图层，符合 RJMapGL 样式规范的 图层定义 。
+                需要添加的样式图层，符合 XLMapGL 样式规范的 图层定义 。
               </div>
               <div>
                 <span class="code bold">beforeId</span> <code class="quiet">(string)</code>
@@ -1973,7 +1973,7 @@
                                                                                     <div>
                                                                                         <span class="code bold">layerid</span><code class="quiet">string</code>需要应用筛选器的图层 ID。
                                                                                         <span class="code bold">filter</span><code>
-                  ((Array | null | undefined))</code> 筛选器，需符合 RJMapGL 样式规范的 筛选器定义 。如果提供了 null 或 undefined ，函数会从图层中移除所有存在的筛选器。
+                  ((Array | null | undefined))</code> 筛选器，需符合 XLMapGL 样式规范的 筛选器定义 。如果提供了 null 或 undefined ，函数会从图层中移除所有存在的筛选器。
                                                                                         <br>
                                                                                         <span class="code bold">options</span><code class="quiet">(Object?)(default {})</code>
                                                                                         <table class="mt1 mb2 fixed-table h5 col-12">
@@ -1995,7 +1995,7 @@
                           default true
                         </code>
                                                                                                     </td>
-                                                                                                    <td class="break-word"><span>是否检查筛选器符合 RJMapGL 的样式定义。取消验证可以带来性能优化，但是应该只在之前已经检查过传入此函数的值时使用。
+                                                                                                    <td class="break-word"><span>是否检查筛选器符合 XLMapGL 的样式定义。取消验证可以带来性能优化，但是应该只在之前已经检查过传入此函数的值时使用。
                     </tr>
                   </tbody>
                 </table>
@@ -2090,7 +2090,7 @@
                                                                                                     <div>
                                                                                                         <span class="code bold">layerid</span><code class="quiet">(string)</code>需要获取筛选器的样式图层 ID。
                                                                                                         <span class="code bold">name</span><code class="quiet">(string)</code>需要设置的 paint 渲染属性名称。
-                                                                                                        <span class="code bold">value</span><code class="quiet">(any)</code>要设置的 paint 渲染属性值。 必须是一种符合 RJMapGL Style Specification 规定的属性类型。
+                                                                                                        <span class="code bold">value</span><code class="quiet">(any)</code>要设置的 paint 渲染属性值。 必须是一种符合 XLMapGL Style Specification 规定的属性类型。
                                                                                                         <br>
                                                                                                         <span class="code bold">options</span><code class="quiet">(Object?)(default {})</code>
                                                                                                         <table class="mt1 mb2 fixed-table h5 col-12">
@@ -2173,7 +2173,7 @@
                                                                                                             <div>
                                                                                                                 <span class="code bold">layerid</span><code class="quiet">(string)</code>需要在其中设置布局（layout）属性的图层 ID。
                                                                                                                 <span class="code bold">name</span><code class="quiet">(string)</code>需要设置的布局属性名称。
-                                                                                                                <span class="code bold">value</span><code class="quiet">(any)</code>布局属性的值。必须是一种符合 RJMapGL Style Specification 规定的属性类型。
+                                                                                                                <span class="code bold">value</span><code class="quiet">(any)</code>布局属性的值。必须是一种符合 XLMapGL Style Specification 规定的属性类型。
                                                                                                                 <br>
                                                                                                                 <span class="code bold">options</span><code class="quiet">(Object?)(default {})</code>
                                                                                                                 <table class="mt1 mb2 fixed-table h5 col-12">
@@ -2195,7 +2195,7 @@
                           default true
                         </code>
                                                                                                                             </td>
-                                                                                                                            <td class="break-word"><span>是否检查 value 符合 RJMapGL 样式规定。取消验证可以带来性能优化，但是应该只在之前已经检查过传入此函数的值时使用。
+                                                                                                                            <td class="break-word"><span>是否检查 value 符合 XLMapGL 样式规定。取消验证可以带来性能优化，但是应该只在之前已经检查过传入此函数的值时使用。
                     </tr>
                   </tbody>
                 </table>
@@ -2254,7 +2254,7 @@
                                                                                                             <div class="prose">
                                                                                                                 <div class="space-bottom0">
                                                                                                                     <div>
-                                                                                                                        <span class="code bold">light</span><code class="quiet">(LightSpecification)</code>需要设置的光源属性。必须符合 RJMapGL Style Specification 定义。
+                                                                                                                        <span class="code bold">light</span><code class="quiet">(LightSpecification)</code>需要设置的光源属性。必须符合 XLMapGL Style Specification 定义。
                                                                                                                         <br>
                                                                                                                         <span class="code bold">options</span><code class="quiet">(Object?)(default {})</code>
                                                                                                                         <table class="mt1 mb2 fixed-table h5 col-12">
@@ -2276,7 +2276,7 @@
                           default true
                         </code>
                                                                                                                                     </td>
-                                                                                                                                    <td class="break-word"><span>是否检查筛选器符合 RJMapGL 样式规定。取消验证可以带来性能优化，但是应该只在之前已经检查过传入此函数的值时使用。
+                                                                                                                                    <td class="break-word"><span>是否检查筛选器符合 XLMapGL 样式规定。取消验证可以带来性能优化，但是应该只在之前已经检查过传入此函数的值时使用。
                     </tr>
                   </tbody>
                 </table>

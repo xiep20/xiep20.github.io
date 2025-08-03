@@ -1,11 +1,22 @@
+
+<importjs>
+  <script src="libs/tdt/Cesium_ext_min.js"></script>
+  <script src="libs/tdt/long.min.js"></script>
+  <script src="libs/tdt/bytebuffer.min.js"></script>
+  <script src="libs/tdt/protobuf.min.js"></script>
+</importjs>
+
 <div id="rjContainer"></div>
+
 <script>
   var Globe = new XLGlobe.Globe("rjContainer", {
-    terrainExaggeration: 3 //地下夸张系数
+    // terrainExaggeration: 3 //地下夸张系数，（废弃）
   });
-
+  window.Globe = Globe;
   //添加底图图层
   _addbdlayer(Globe);
+  Globe.viewer.scene.verticalExaggeration = 3.0; // 地形高度放大3倍
+  Globe.viewer.scene.verticalExaggerationRelativeHeight = 10.0; // 以10米为基准高度
   //天地图地形
   var provider = new XLGlobe.Layer.TiandituTerrainProvider();
   Globe.addTerrainLayer(provider);

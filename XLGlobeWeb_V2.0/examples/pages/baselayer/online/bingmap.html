@@ -43,10 +43,11 @@
 
   for (var i = 0; i < bingStyle.length; i++) {
     //各类风格bingmap底图
-    var imageryProvider = new XLGlobe.Layer.BingImageryProvider({
-      layer: bingStyle[i]
-    });
-    Globe.addBaseLayer(imageryProvider);
+    createBingMap(bingStyle[i]);
+    // var imageryProvider = new XLGlobe.Layer.BingImageryProvider({
+    //   layer: bingStyle[i]
+    // });
+    // Globe.addBaseLayer(imageryProvider);
     //选择栏
     var obj = {
       text: bingStyle[i],
@@ -58,7 +59,14 @@
     };
     bingProviderMenu.push(obj);
   }
-
+  
+  async function createBingMap(style){
+    var imageryProvider =await XLGlobe.Layer.BingImageryProvider({
+      layer: style,
+            key: "ArleH3jesuWenmkW19k0VTiUYNfoY5oAc2-AaSKpyzpMYw-B_EGkpqlNwCa7koTG"
+          });
+          Globe.addBaseLayer(imageryProvider);
+    }
   //加载选择栏内容
   Sandcastle.addDefaultToolbarMenu(bingProviderMenu);
 </script>

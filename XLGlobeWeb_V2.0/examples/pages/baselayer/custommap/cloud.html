@@ -1,12 +1,18 @@
 <div id="rjContainer"></div>
 <script>
   var Globe = new XLGlobe.Globe("rjContainer");
-  //arcgis
-  var baselayer = new XLGlobe.Layer.ArcgisImageryProvider({
-    type: "wmts",
-    url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+  //天地图影像图层
+  var baselayer1 = new XLGlobe.Layer.TiandituImageryProvider({
+    layer: "img",
+    token: "6a043ce7d3a0791392dd921a6d6f5f29"
   });
-  Globe.addBaseLayer(baselayer);
+  //标注图层
+  var baselayer2 = new XLGlobe.Layer.TiandituImageryProvider({
+    layer: "cia",
+    token: "6a043ce7d3a0791392dd921a6d6f5f29"
+  });
+  Globe.addBaseLayer(baselayer1);//添加基础图层
+  Globe.addLayer(baselayer2);//添加标注图层
 
   var layers = [];
   //云层图片
@@ -28,7 +34,7 @@
   var x = 0;
   for (var i = 0; i < imgs.length; i++) {
     //创建图片图层
-    var im = new XLGlobe.Layer.createImageryProvider({
+      var im = XLGlobe.Layer.createImageryProvider({
       "type": "image",
       "url": config.dataUrl + imgs[i],
       rectangle: {

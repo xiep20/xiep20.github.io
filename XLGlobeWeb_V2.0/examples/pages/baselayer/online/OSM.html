@@ -2,6 +2,8 @@
 <script>
   var Globe = new XLGlobe.Globe("rjContainer");
   //OSM
-  var baselayer = new XLGlobe.Layer.OSMImageryProvider({});
+  // var baselayer = new XLGlobe.Layer.OSMImageryProvider({});
+  var baselayer = new XLGlobe.Layer.OSMImageryProvider({url:'https://a.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png'});
+  
   Globe.addBaseLayer(baselayer);
 </script>

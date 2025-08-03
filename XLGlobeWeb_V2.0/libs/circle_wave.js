@@ -28,7 +28,7 @@ class CircleWaveMaterialProperty {
 
 }
 
-Cesium.defineProperties(CircleWaveMaterialProperty.prototype, {
+Object.defineProperties(CircleWaveMaterialProperty.prototype, {
     isConstant: {
         get: function () {
             return false;
