@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as s,ag as o}from"./chunks/framework.Bw-5EFTY.js";const h=JSON.parse('{"title":"👨‍💻 关于我","description":"","frontmatter":{},"headers":[],"relativePath":"about.md","filePath":"about.md"}'),n={name:"about.md"};function i(r,a,l,g,p,c){return s(),e("div",null,a[0]||(a[0]=[o("",19)]))}const u=t(n,[["render",i]]);export{h as __pageData,u as default};
