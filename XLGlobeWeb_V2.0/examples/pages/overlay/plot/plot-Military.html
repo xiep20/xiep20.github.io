@@ -29,7 +29,7 @@
     <script src="libs/plot/plotUtil.js"></script>
     <script src="libs/plot/plotWorker.js"></script>
 </importjs>
-<div id="rjContainer" class="cesium-container"></div>
+<div id="mapContainer" class="cesium-container"></div>
 
 <!-- 面板 -->
 <div class="infoview">
@@ -57,7 +57,7 @@
     var scene;
     //初始化地图
     function initMap() {
-        var Globe = new XLGlobe.Globe("rjContainer", {});
+        var Globe = new XLGlobe.Globe("mapContainer", {});
 
         viewer = Globe.viewer;
         scene = viewer.scene;

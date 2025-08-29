@@ -1,7 +1,7 @@
 <style>
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <script>
     $(document).ready(function () {
         if (!XLGlobe.Utils.util.webglreport()) {
@@ -16,7 +16,7 @@
     //初始化地图
     function initMap() {
         //初始化地图
-        Globe = new XLGlobe.Globe("rjContainer", {
+        Globe = new XLGlobe.Globe("mapContainer", {
             navigation: true, //导航
         });
         viewer = Globe.viewer;

@@ -389,7 +389,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("rjContainer");
+                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("mapContainer");
                  <span class="hljs-keyword">new </span>XLGlobe.Layer.ArcgisCacheImageryProvider({
                  <span class="hljs-keyword">url</span>: config.dataUrl + "tile/arcgis_cache/_alllayers/L{arc_z}/R{arc_y}/C{arc_x}.jpg",
                  <span class="hljs-keyword">maximumLevel</span>: 4,
@@ -817,7 +817,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("rjContainer");
+                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("mapContainer");
                  <span class="hljs-keyword">var </span>baselayer<span class="hljs-keyword">new </span>XLGlobe.Layer.ArcgisImageryProvider({
                  <span class="hljs-keyword">url</span>: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"   
                  });
@@ -1034,7 +1034,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("rjContainer");
+                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("mapContainer");
                  <span class="hljs-keyword">var </span>provider<span class="hljs-keyword">new </span>XLGlobe.Layer.ArcGISTiledElevationTerrainProvider({
                  <span class="hljs-keyword">url</span>: "http://services.arcgisonline.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
                  <span class="hljs-keyword">proxy</span>: <span class="hljs-keyword">new </span> Cesium.DefaultProxy('/terrain/')       
@@ -1195,7 +1195,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("rjContainer");
+                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("mapContainer");
                  <span class="hljs-keyword">var </span>BaseLayer<span class="hljs-keyword">new </span>XLGlobe.Layer.BingImageryProvider({
                  <span class="hljs-keyword">layer</span>: Cesium.BingMapsStyle.AERIAL
                  });
@@ -1299,7 +1299,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("rjContainer");
+                 <span class="hljs-keyword">var </span>Glob =  <span class="hljs-keyword">new </span>XLGlobe.Globe("mapContainer");
                  <span class="hljs-keyword">var </span>BaseLayer<span class="hljs-keyword">new </span>XLGlobe.Layer.BaiduImageryProvider({
                  <span class="hljs-keyword">layer: </span>"vec" 
                  });
@@ -2192,7 +2192,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("rjContainer");
+                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("mapContainer");
                 <span class="hljs-keyword">var</span> MapboxProvider = <span class="hljs-keyword">new </span>XLGlobe.Layer.MapboxStyleImageryProvider({
                 <span class="hljs-keyword">url</span>: 'https://api.mapbox.com/styles/v1',
                 <span class="hljs-keyword">username</span>: 'mapboxxp',
@@ -2496,7 +2496,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("rjContainer");
+                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("mapContainer");
                 <span class="hljs-keyword">var</span> BaseLayer = <span class="hljs-keyword">new </span>XLGlobe.Layer.MapboxStyleImageryProvider({});
 
                 <span class="hljs-keyword">Globe</span>.addBaseLayer(BaseLayer);
@@ -2773,7 +2773,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("rjContainer");
+                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("mapContainer");
                 <span class="hljs-keyword">var</span> layer = <span class="hljs-keyword">new </span>XLGlobe.Layer.TMSImageryProvider({
                 <span class="hljs-keyword">name</span>: "省界线",
                 <span class="hljs-keyword">type</span>: "wms",
@@ -2884,7 +2884,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("rjContainer");
+                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("mapContainer");
                 <span class="hljs-keyword">var</span> baseLayer = <span class="hljs-keyword">new </span>XLGlobe.Layer.TiandituImageryProvider({  
                 <span class="hljs-keyword">layer</span>: 'img',
                 <span class="hljs-keyword">token</span>: '6a043ce7d3a0791392dd921a6d6f5f29',    
@@ -2944,7 +2944,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("rjContainer");
+                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("mapContainer");
                 <span class="hljs-keyword">var</span> provider = <span class="hljs-keyword">new </span>XLGlobe.Layer.TiandituTerrainProvider();
 
                 <span class="hljs-keyword">Globe</span>.addTerrainLayer(provider);
@@ -3625,7 +3625,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("rjContainer");
+                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("mapContainer");
                 <span class="hljs-keyword">var</span> layer = <span class="hljs-keyword">new </span>XLGlobe.Layer.WMSImageryProvider({  
                 <span class="hljs-keyword">name</span>: "省界线",
                 <span class="hljs-keyword">type</span>: "wms",
@@ -3867,7 +3867,7 @@
                 <a class="anchorjs-link " name="Example" style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1em; line-height: inherit; font-family: anchorjs-icons; position: absolute; margin-left: -1em; padding-right: 0.5em;"></a>Example
             </div>
             <pre class="p1 overflow-auto round fill-light">
-                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("rjContainer");
+                <span class="hljs-keyword">var</span> Globe = <span class="hljs-keyword">new</span>XLGlobe.Globe("mapContainer");
                 <span class="hljs-keyword">var</span> layer = <span class="hljs-keyword">new </span>XLGlobe.Layer.WMSImageryProvider({  
                 <span class="hljs-keyword">name</span>: "武汉",
                 <span class="hljs-keyword">type</span>: "wmts",

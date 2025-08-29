@@ -5,7 +5,7 @@
 ## 如何使用
 
 ``` javascript
-    var Globe = new XLGlobe.Globe("rjContainer", {
+    var Globe = new XLGlobe.Globe("mapContainer", {
         homeButton: true, //回到默认视域按钮
         sceneModePicker: true, //是否显示投影方式控件
         baselayervis: true, //底图切换显示

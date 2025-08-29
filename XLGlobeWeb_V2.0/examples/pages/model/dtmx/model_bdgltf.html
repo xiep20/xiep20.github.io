@@ -73,7 +73,7 @@
         border-color: #4db3ff;
     }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="toolbar">
     <div class="tool_li">模型URL： <input id="modelurl" type="text"
             value="http://103.94.20.254:6090/wuhan_20201014/model/Model/qizhongche/qizhongche.gltf" style="width:350px">
@@ -87,7 +87,7 @@
     </div>
 </div>
 <script>
-    var Globe = new XLGlobe.Globe("rjContainer", {
+    var Globe = new XLGlobe.Globe("mapContainer", {
         shouldAnimate: true,
         mouseLocation: true
     });

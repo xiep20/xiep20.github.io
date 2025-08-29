@@ -47,7 +47,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="toolbar">
     <div class="tool_li">模型URL： <input id="modelurl" type="text"
             value="http://103.94.20.254:6090/wuhan_20201014/model/3DTiles/倾斜摄影/tileset.json" style="width:350px">
@@ -68,7 +68,7 @@
     //初始化地图
     function initMap() {
         //初始化地图
-        Globe = new XLGlobe.Globe("rjContainer");
+        Globe = new XLGlobe.Globe("mapContainer");
         viewer = Globe.viewer;
 
         //添加底图图层

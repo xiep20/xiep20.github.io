@@ -48,7 +48,7 @@
         padding: 10px 50px 10px 15px;
     }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="menu">
     <button onclick="duobianxing()">绘制立面体</button>
     <button onclick="play(1)">播放</button>
@@ -77,7 +77,7 @@
 
     //初始化地图
     function initMap() {
-        var Globe = new XLGlobe.Globe("rjContainer", {});
+        var Globe = new XLGlobe.Globe("mapContainer", {});
 
         viewer = Globe.viewer;
         scene = viewer.scene;

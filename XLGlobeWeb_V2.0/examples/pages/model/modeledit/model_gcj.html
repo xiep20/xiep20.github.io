@@ -22,7 +22,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="menu">
     <li>
         <button onclick="loadWGS84()">WGS84标准底图</button>
@@ -46,7 +46,7 @@
     });
     // 初始化地图
     function initMap() {
-        Globe = new XLGlobe.Globe("rjContainer");
+        Globe = new XLGlobe.Globe("mapContainer");
         viewer = Globe.viewer;
         baselayer1 = new XLGlobe.Layer.TiandituImageryProvider({
             layer: "img",

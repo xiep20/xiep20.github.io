@@ -76,7 +76,7 @@
     background-color: #46be8a;
   }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="buts">
   <button class="btn btn-primary" onclick="modelRoaming()">开始漫游</button>
   <button class="btn btn-primary" onclick="PauseOrContinue(false)">暂停</button>
@@ -135,7 +135,7 @@
 </div>
 <script>
   //地图底图
-  var Globe = new XLGlobe.Globe("rjContainer", {
+  var Globe = new XLGlobe.Globe("mapContainer", {
     animation: true
   });
 

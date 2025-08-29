@@ -14,7 +14,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <!-- 面板 -->
 <div id="menu">
     <input id="meeting" type="date" value="2020-10-20" />
@@ -51,7 +51,7 @@
 
     //初始化地图
     function initMap() {
-        var Globe = new XLGlobe.Globe("rjContainer", {});
+        var Globe = new XLGlobe.Globe("mapContainer", {});
 
         viewer = Globe.viewer;
         scene = viewer.scene;

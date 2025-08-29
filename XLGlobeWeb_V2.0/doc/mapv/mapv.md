@@ -16,7 +16,7 @@
 
 ``` javascript
   
-  var Globe = new XLGlobe.Globe("rjContainer", {});
+  var Globe = new XLGlobe.Globe("mapContainer", {});
   var viewer = Globe.viewer;
   var scene = viewer.scene;
   //google底图

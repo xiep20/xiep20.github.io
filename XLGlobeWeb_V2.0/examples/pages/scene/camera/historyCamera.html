@@ -31,7 +31,7 @@
         background-color: rgba(32, 160, 255, .2);
     }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div class="bts">
     <div>当前共有<span id="lblAll" class="count">1</span>条视角记录，当前正在第<span id="lblStep" class="count">1</span>条视角</div>
     <input type="button" onclick="upCamera()" value="上一视图"></input>
@@ -41,7 +41,7 @@
 <&other&>
 </&other&>
 <script>
-    var Globe = new XLGlobe.Globe("rjContainer", {
+    var Globe = new XLGlobe.Globe("mapContainer", {
         logo: true,
     });
 

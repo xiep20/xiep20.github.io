@@ -16,7 +16,7 @@
     height: auto;
   }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="toolbar" class="infoview"></div>
 <p class="tip">说明：1.选择右侧模型，2点击场景生成模型，3.双击模型可在左侧属性面板修改参数</p>
 <script>
@@ -32,7 +32,7 @@
   //初始化地图
   function initMap() {
     //初始化地图
-    Globe = new XLGlobe.Globe("rjContainer", {
+    Globe = new XLGlobe.Globe("mapContainer", {
       navigation: true, //导航
       animation: true
     });

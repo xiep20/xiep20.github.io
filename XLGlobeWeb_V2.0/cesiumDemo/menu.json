@@ -1,0 +1,12 @@
+{
+    "md": "开发文档卡片配置文件",
+    "cards": [
+        {
+            "name": "天地图加载",
+            "image": "images/menu/baselayer/online/tdt.png",
+            "tags": ["天地图", "WMTS服务"],
+            "description": "天地图WMTS服务示例，展示如何使用Cesium加载天地图WMTS服务。",
+            "mdUrl": "cesiumDemo/pages/tdt/tdt.md"
+        }
+    ]
+}

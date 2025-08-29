@@ -21,7 +21,7 @@
 
         html,
         body,
-        #rjContainer {
+        #mapContainer {
             width: 100%;
             height: 100%;
             margin: 0;
@@ -32,10 +32,10 @@
 </head>
 
 <body>
-    <div id="rjContainer"></div>
+    <div id="mapContainer"></div>
     <script>
         //初始化地图
-        var Globe = new XLGlobe.Globe("rjContainer");
+        var Globe = new XLGlobe.Globe("mapContainer");
     </script>
 </body>
 

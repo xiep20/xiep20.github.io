@@ -22,7 +22,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 
 <script>
     $(document).ready(function () {
@@ -39,7 +39,7 @@
 
     //初始化地图
     function initMap() {
-        var Globe = new XLGlobe.Globe("rjContainer", {});
+        var Globe = new XLGlobe.Globe("mapContainer", {});
 
         viewer = Globe.viewer;
         scene = viewer.scene;

@@ -45,7 +45,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="toolbar">
     缓冲半径：<input type="text" id="txtRadius" value="100"> 米
     <input type="button" class="btn btn-primary" value="画点" onclick="draw(this,'point')">
@@ -71,7 +71,7 @@
     //初始化地图
     function initMap() {
         //初始化地图
-        Globe = new XLGlobe.Globe("rjContainer");
+        Globe = new XLGlobe.Globe("mapContainer");
         viewer = Globe.viewer;
         //添加底图图层
         _addbdlayer(Globe);

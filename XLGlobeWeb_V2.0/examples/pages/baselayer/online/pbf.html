@@ -2,9 +2,9 @@
   <script src="libs/pbf/ol.js"></script>
   <script src="libs/pbf/mvt.js"></script>
 </importjs>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <script>
-  var Globe = new XLGlobe.Globe("rjContainer");
+  var Globe = new XLGlobe.Globe("mapContainer");
   //pbf
   var baselayer = mvt.create({
     url: 'https://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/{z}/{x}/{y}.vector.pbf?access_token={k}',

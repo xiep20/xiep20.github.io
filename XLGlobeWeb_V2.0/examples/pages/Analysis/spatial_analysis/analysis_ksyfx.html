@@ -33,7 +33,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <!-- 面板 -->
 <div class="infoview">
     <div>提示：单击“添加可视域”后，图上左键绘制两点即可</div>
@@ -63,7 +63,7 @@
 
     //初始化地图
     function initMap() {
-        var Globe = new XLGlobe.Globe("rjContainer", {});
+        var Globe = new XLGlobe.Globe("mapContainer", {});
 
         viewer = Globe.viewer;
         scene = viewer.scene;

@@ -12,7 +12,7 @@
     box-shadow: 0 3px 14px rgba(128, 128, 128, .5);
   }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="buts">
   <button class="btn btn-primary" onclick="changingView(1)">跟踪视角</button>
   <button class="btn btn-primary" onclick="changingView(2)">上方视角</button>
@@ -21,7 +21,7 @@
 </div>
 <script>
   //地图底图
-  var Globe = new XLGlobe.Globe("rjContainer", {
+  var Globe = new XLGlobe.Globe("mapContainer", {
     animation: true
   });
 

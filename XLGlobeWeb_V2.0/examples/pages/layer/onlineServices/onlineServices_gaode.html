@@ -52,7 +52,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="toolbar" style="padding-bottom: 30px;">
     <ul style="margin-top: 10px;">
         <span>请选择条件</span>
@@ -149,7 +149,7 @@
     var drawControl;
     // 初始化地图
     function initMap() {
-        Globe = new XLGlobe.Globe("rjContainer");
+        Globe = new XLGlobe.Globe("mapContainer");
         Viewer = Globe.viewer;
 
         //添加底图图层

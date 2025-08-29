@@ -1,7 +1,7 @@
 <style>
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <script>
     $(document).ready(function () {
         if (!XLGlobe.Utils.util.webglreport()) {
@@ -23,7 +23,7 @@
         Cesium.Ion.defaultAccessToken =
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhNzFiNzhkYS04ZTRmLTRkNzYtYjQzYS05Y2IzZDQ3NzYwZjIiLCJpZCI6Mzg4NzAsImlhdCI6MTYwNjg5OTY2OX0.K0s-16tZq6fBs0dNJSP2BOiyvIyUZl28o-1jVEAo6-s';
         //初始化地图
-        Globe = new XLGlobe.Globe("rjContainer");
+        Globe = new XLGlobe.Globe("mapContainer");
         viewer = Globe.viewer;
 
         //添加底图图层

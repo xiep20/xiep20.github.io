@@ -31,7 +31,7 @@
         background-color: rgba(32, 160, 255, .2);
     }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div class="bts">
     <input type="button" onclick="startLimitCamera()" value="限定该视角"></input>
     <input type="button" onclick="endLimitCamera()" value="取消限定"></input>
@@ -39,7 +39,7 @@
 <&other&>
 </&other&>
 <script>
-    var Globe = new XLGlobe.Globe("rjContainer", {
+    var Globe = new XLGlobe.Globe("mapContainer", {
         logo: true,
     });
 

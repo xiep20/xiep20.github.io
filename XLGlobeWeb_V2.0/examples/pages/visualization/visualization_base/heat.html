@@ -59,7 +59,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="toolbar">
     <div class="tool_row">
         <div>取样点数量：</div><input type="text" id="pointvalue" value="100">
@@ -89,7 +89,7 @@
     //初始化地图
     function initMap() {
         //初始化地图
-        Globe = new XLGlobe.Globe("rjContainer");
+        Globe = new XLGlobe.Globe("mapContainer");
         viewer = Globe.viewer;
 
         //添加底图图层

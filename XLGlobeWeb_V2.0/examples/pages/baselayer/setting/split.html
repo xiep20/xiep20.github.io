@@ -13,7 +13,7 @@
     cursor: ew-resize;
   }
 </style>
-<div id="rjContainer" class="fullSize">
+<div id="mapContainer" class="fullSize">
   <div id="slider"></div>
 </div>
 <div id="loadingOverlay">
@@ -21,7 +21,7 @@
 </div>
 <div id="toolbar"></div>
 <script>
-  var Globe = new XLGlobe.Globe("rjContainer");
+  var Globe = new XLGlobe.Globe("mapContainer");
   var viewer = Globe.viewer;
   //天地图影像
   var baselayer = [new XLGlobe.Layer.TiandituImageryProvider({

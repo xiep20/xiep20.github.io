@@ -26,7 +26,7 @@
         background-color: transparent;
     }
 </style>
-<div id="rjContainer" class="cesium-container"></div>
+<div id="mapContainer" class="cesium-container"></div>
 
 <!-- 面板 -->
 <div class="infoview">
@@ -82,7 +82,7 @@
     var Globe;
     //初始化地图
     function initMap() {
-        Globe = new XLGlobe.Globe("rjContainer", {});
+        Globe = new XLGlobe.Globe("mapContainer", {});
 
         viewer = Globe.viewer;
         scene = viewer.scene;

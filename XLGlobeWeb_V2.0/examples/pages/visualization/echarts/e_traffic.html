@@ -2,7 +2,7 @@
   <!-- echarts插件 -->
   <script src="libs/echarts.min.js"></script>
 </importjs>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <script>
   $(document).ready(function () {
     if (!XLGlobe.Utils.util.webglreport()) {
@@ -16,7 +16,7 @@
 
   //初始化地图
   function initMap() {
-    var Globe = new XLGlobe.Globe("rjContainer", {});
+    var Globe = new XLGlobe.Globe("mapContainer", {});
     viewer = Globe.viewer;
     scene = viewer.scene;
     //微软Bing底图

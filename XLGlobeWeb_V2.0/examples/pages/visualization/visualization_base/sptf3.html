@@ -44,7 +44,7 @@
     padding: 10px 50px 10px 15px;
   }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <video id="video_dom" preload="auto" autoPlay loop>
   <source src="./images/visualization/mp4/videoFusion.mp4" type="video/mp4" />
 </video>
@@ -98,7 +98,7 @@
 
   //初始化地图
   function initMap() {
-    var Globe = new XLGlobe.Globe("rjContainer", {});
+    var Globe = new XLGlobe.Globe("mapContainer", {});
 
     viewer = Globe.viewer;
     scene = viewer.scene;

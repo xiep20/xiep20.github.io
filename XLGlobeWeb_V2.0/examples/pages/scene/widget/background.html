@@ -1,14 +1,14 @@
 <style>
-    #rjContainer .cesium-widget>canvas {
+    #mapContainer .cesium-widget>canvas {
         background-size: 100% 100%;
     }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <&other&>
 </&other&>
 <script>
     //地图底图
-    var Globe = new XLGlobe.Globe("rjContainer", {
+    var Globe = new XLGlobe.Globe("mapContainer", {
         logo: true,
         //设置背景渲染
         orderIndependentTranslucency: false,

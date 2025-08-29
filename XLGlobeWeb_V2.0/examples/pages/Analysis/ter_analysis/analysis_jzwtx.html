@@ -9,7 +9,7 @@
     z-index: 999;
   }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <script>
   $(document).ready(function () {
     if (!XLGlobe.Utils.util.webglreport()) {
@@ -25,7 +25,7 @@
   var tiles3d
   //初始化地图
   function initMap() {
-    var Globe = new XLGlobe.Globe("rjContainer", {});
+    var Globe = new XLGlobe.Globe("mapContainer", {});
     viewer = Globe.viewer;
     scene = viewer.scene;
 

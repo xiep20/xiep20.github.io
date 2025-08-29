@@ -13,7 +13,7 @@
     }
 </style>
 
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="buts">
     <button class="btn btn-primary" onclick="addCameraTrack()">添加当前视角</button>
     <button class="btn btn-primary" onclick="cameraPlay()">飞行</button>
@@ -23,7 +23,7 @@
 </div>
 <script>
     //地图底图
-    var Globe = new XLGlobe.Globe("rjContainer", {
+    var Globe = new XLGlobe.Globe("mapContainer", {
         animation: true
     });
 

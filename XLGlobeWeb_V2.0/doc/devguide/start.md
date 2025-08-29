@@ -27,13 +27,13 @@
 ### 创建地图容器
 
 ``` html
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 ```
 
 ### 地图初始化 
 
 ``` javascript
-  var Globe = new XLGlobe.Globe("rjContainer");
+  var Globe = new XLGlobe.Globe("mapContainer");
 ```
 
 &emsp; 

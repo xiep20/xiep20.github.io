@@ -12,7 +12,7 @@
     z-index: 999;
   }
 </style>
-<div id="rjContainer"></div>
+<div id="mapContainer"></div>
 <div id="toolbar">
   <table>
     <tbody>
@@ -41,7 +41,7 @@
   </table>
 </div>
 <script>
-  var Globe = new XLGlobe.Globe("rjContainer");
+  var Globe = new XLGlobe.Globe("mapContainer");
   //arcgis切片
   var layer = new XLGlobe.Layer.ArcgisCacheImageryProvider({
     "url": config.dataUrl + "tile/arcgis_cache/_alllayers/L{arc_z}/R{arc_y}/C{arc_x}.jpg",
