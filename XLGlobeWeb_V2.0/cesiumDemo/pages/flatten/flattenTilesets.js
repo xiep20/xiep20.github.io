@@ -47,7 +47,7 @@ export default class FlattenTileset {
           );
           this._updateTilesetShader(tileset);
         } catch (e) {
-          console.warn("Invalid tileset:", e);
+          console.warn('Invalid tileset:', e);
         }
       };
   
@@ -78,7 +78,7 @@ export default class FlattenTileset {
           let _h = tileset.config.centerXYZ[2]
             ? height - tileset.config.centerXYZ[2]
             : height;
-          tileset.customShader.setUniform("u_oHeight", _h);
+          tileset.customShader.setUniform('u_oHeight', _h);
         }
       });
     }
@@ -94,7 +94,7 @@ export default class FlattenTileset {
   
       config.flatHeight = height;
       if (tileset.customShader) {
-        tileset.customShader.setUniform("u_flatHeight", height);
+        tileset.customShader.setUniform('u_flatHeight', height);
       }
     }
     /**
@@ -117,7 +117,7 @@ export default class FlattenTileset {
   
         // 验证坐标有效性
         if (!positions || positions.length < 3) {
-          throw new Error("至少需要3个点组成多边形");
+          throw new Error('至少需要3个点组成多边形');
         }
   
         // 存储转换后的标准坐标
@@ -132,7 +132,7 @@ export default class FlattenTileset {
           this._updateTilesetShader(tileset);
         });
       } catch (e) {
-        console.error("压平面添加失败:", e.message);
+        console.error('压平面添加失败:', e.message);
       }
     }
   
@@ -143,23 +143,23 @@ export default class FlattenTileset {
     _detectPositionFormat(input) {
       if (Array.isArray(input)) {
         // 检测是否为二维数组 [[lon,lat], ...]
-        if ((input[0].length === 2 || input[0].length === 3) && typeof input[0][0] === "number") {
-          return "lonlat";
+        if ((input[0].length === 2 || input[0].length === 3) && typeof input[0][0] === 'number') {
+          return 'lonlat';
         }
         // 检测是否为Cartesian3数组
         if (input[0] instanceof Cesium.Cartesian3) {
-          return "cartesian";
+          return 'cartesian';
         }
       }
       // WKT字符串检测
-      if (typeof input === "string" && input.match(/POLYGON\s*\(/i)) {
-        return "wkt";
+      if (typeof input === 'string' && input.match(/POLYGON\s*\(/i)) {
+        return 'wkt';
       }
       // GeoJSON检测
-      if (input.type === "Feature" || input.type === "Polygon") {
-        return "geojson";
+      if (input.type === 'Feature' || input.type === 'Polygon') {
+        return 'geojson';
       }
-      throw new Error("无法识别的坐标格式");
+      throw new Error('无法识别的坐标格式');
     }
   
     /**
@@ -168,18 +168,18 @@ export default class FlattenTileset {
      */
     _parsePositions(input, format) {
       switch (format) {
-        case "cartesian":
+        case 'cartesian':
           return input; // 直接使用现有Cartesian3数组
   
-        case "lonlat":
+        case 'lonlat':
           return input.map((p) =>
             Cesium.Cartesian3.fromDegrees(p[0], p[1], p[2] || 0)
           );
   
-        case "wkt":
+        case 'wkt':
           return this._parseWKTPolygon(input);
   
-        case "geojson":
+        case 'geojson':
           return this._parseGeoJSON(input);
   
         default:
@@ -194,9 +194,9 @@ export default class FlattenTileset {
     _parseWKTPolygon(wkt) {
       // 示例输入：POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))
       const match = wkt.match(/\(\(([^)]+)\)\)/);
-      if (!match) throw new Error("无效的WKT格式");
+      if (!match) throw new Error('无效的WKT格式');
   
-      return match[1].split(",").map((pair) => {
+      return match[1].split(',').map((pair) => {
         const [lon, lat] = pair.trim().split(/\s+/);
         return Cesium.Cartesian3.fromDegrees(parseFloat(lon), parseFloat(lat));
       });
@@ -209,17 +209,17 @@ export default class FlattenTileset {
     _parseGeoJSON(geojson) {
       let coordinates;
       // 支持Feature或直接几何对象
-      if (geojson.type === "Feature") {
+      if (geojson.type === 'Feature') {
         coordinates = geojson.geometry.coordinates;
-      } else if (geojson.type === "Polygon") {
+      } else if (geojson.type === 'Polygon') {
         coordinates = geojson.coordinates;
       } else {
-        throw new Error("仅支持Polygon类型GeoJSON");
+        throw new Error('仅支持Polygon类型GeoJSON');
       }
   
       // 提取首个环（忽略孔洞）
       const ring = coordinates[0];
-      if (!ring) throw new Error("缺少坐标数据");
+      if (!ring) throw new Error('缺少坐标数据');
   
       return ring.map((p) =>
         Cesium.Cartesian3.fromDegrees(p[0], p[1], p[2] || 0)
@@ -329,7 +329,7 @@ export default class FlattenTileset {
               }
           `
         )
-        .join("\n");
+        .join('\n');
     }
   
     _generateShaderLogic(regions) {
@@ -345,7 +345,7 @@ export default class FlattenTileset {
               ([x, y], j) =>
                 `points_${i}[${j}] = vec2(${x.toFixed(5)}, ${y.toFixed(5)});`
             )
-            .join("\n");
+            .join('\n');
   
           return `
                   {
@@ -363,7 +363,7 @@ export default class FlattenTileset {
                   }
               `;
         })
-        .join("\n");
+        .join('\n');
     }
     clearAllRegions() {
       // 保存当前tileset引用防止遍历过程中发生变化

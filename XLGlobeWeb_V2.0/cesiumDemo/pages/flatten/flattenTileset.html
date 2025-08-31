@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cesium 加载天地图</title>
     <script src="libs/Cesium1.130/Cesium.js"></script>
-    <script src="flattenTilesets.js"></script>
     <link href="libs/Cesium1.130/Widgets/widgets.css" rel="stylesheet">
     <style>
         html, body{
@@ -60,7 +59,8 @@
     <button id="flattenButton" class="flatten-button">压平模型</button>
     <button id="cancelButton" class="cancel-button">取消压平</button>
 
-    <script>
+    <script type="module">
+        import FlattenTileset from '/cesiumDemo/pages/flatten/flattenTilesets.js';
         // 初始化Cesium Viewer
         Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMzc3Yjk4Yy00ZDEwLTQ3ZDktYTU3Mi05OWQwNmJjZjRlYjIiLCJpZCI6MzM1Nzg0LCJpYXQiOjE3NTYyODIwOTN9.9BZOXdLnOCtN4xn-QfEoH12Di3sDstPnPbPIep23X8s';
         
@@ -127,43 +127,47 @@
 
         // 压平模型
         function initFlattenTool() {
-            if (typeof FlattenTileset !== 'undefined') {
-                // 创建压平工具实例，传入tileset和配置
-                const flattenTool = new FlattenTileset([], {
-                    oHeight: 0,  // 统一基准高度
-                    // flatHeight: 0 // 压平高度
+            // 创建压平工具实例，传入tileset和配置
+            const flattenTool = new FlattenTileset([], {
+                oHeight: 0,  // 统一基准高度
+                // flatHeight: 0 // 压平高度
+            });
+            flattenTool.addTileset(tileset);
+            
+            // 绑定压平按钮事件
+            document.getElementById('flattenButton').onclick = function() {
+                // 使用指定的坐标范围作为压平区域
+                const positions = [
+                    
+                // [-114.490115469850551, -60.0014004026574727906],   // 左下角
+                //     [114.4858431215344545, -60.0014004026574727906],  // 右下角
+                //     [114.4858431215344545, 60.001219770455921187],  // 右上角
+                //     [-114.490115469850551, 60.001219770455921187],    // 左上角
+                //     [-114.490115469850551, -60.0014004026574727906]
+
+                [-4.489039250307564, 0.0008661332994096411],   // 左下角
+                [-4.485378700629717, 0.0008661332994096411],   // 右下角
+                [-4.485378700629717, -0.0022505308127844068],  // 右上角
+                [-4.489039250307564, -0.0022505308127844068],  // 左上角
+                [-4.489039250307564, 0.0008661332994096411]   // 闭合多边形
+                ];
+                
+                flattenTool.clearAllRegions();
+                // 添加压平区域
+                flattenTool.addRegion({
+                    positions: positions,
+                    height: 0  // 压平高度偏移
                 });
-                flattenTool.addTileset(tileset);
                 
-                // 绑定压平按钮事件
-                document.getElementById('flattenButton').onclick = function() {
-                    // 使用指定的坐标范围作为压平区域
-                    const positions = [
-                        
-                    [-114.490115469850551, -60.0014004026574727906],   // 左下角
-                        [114.4858431215344545, -60.0014004026574727906],  // 右下角
-                        [114.4858431215344545, 60.001219770455921187],  // 右上角
-                        [-114.490115469850551, 60.001219770455921187],    // 左上角
-                        [-114.490115469850551, -60.0014004026574727906]
-                    ];
-                    
-                    flattenTool.clearAllRegions();
-                    // 添加压平区域
-                    flattenTool.addRegion({
-                        positions: positions,
-                        height: 0  // 压平高度偏移
-                    });
-                    
-                    console.log('压平区域已添加，坐标范围:', positions);
-                };
-                
-                // 绑定取消压平按钮事件
-                document.getElementById('cancelButton').onclick = function() {
-                    // 清除所有压平区域
-                    flattenTool.clearAllRegions();
-                    console.log('压平已取消');
-                };
-            }
+                console.log('压平区域已添加，坐标范围:', positions);
+            };
+            
+            // 绑定取消压平按钮事件
+            document.getElementById('cancelButton').onclick = function() {
+                // 清除所有压平区域
+                flattenTool.clearAllRegions();
+                console.log('压平已取消');
+            };
         }
     </script>
 </body>
