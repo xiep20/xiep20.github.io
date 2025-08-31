@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cesium 玻璃幕墙特效</title>
+    <title>Cesium 加载天地图</title>
     <script src="libs/Cesium1.130/Cesium.js"></script>
     <link href="libs/Cesium1.130/Widgets/widgets.css" rel="stylesheet">
     <style>
+        html, body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
         #cesiumContainer {
             width: 100%;
-            height: 100vh;
+            height: 100%;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -25,37 +32,53 @@
         
         const viewer = new Cesium.Viewer('cesiumContainer', {
             baseLayerPicker: false,
+            geocoder: false,
+            homeButton: false,
+            fullscreenButton: false,
+            sceneModePicker: false,
+            navigationHelpButton: false,
+            animation: false,
+            timeline: false,
+            baseLayerPicker: false,
+            navigationInstructionsInitiallyVisible: false,
+
         });
 
         // 添加天地图影像底图（无标注）
         const imageryLayer = new Cesium.WebMapTileServiceImageryProvider({
-            url: 'https://t{s}.tianditu.gov.cn/img_w/wmts?tk=afc12d79d5702d681aa3bee2c4e45e5a',
+            url: 'https://t{s}.tianditu.gov.cn/img_c/wmts?tk=afc12d79d5702d681aa3bee2c4e45e5a',
             layer: "img",
             style: "default",
             format: "tiles",
-            tileMatrixSetID: "w",
+            tileMatrixSetID: "c",
             maximumLevel: 18,
-            credit: new Cesium.Credit('天地图注记'),
+            credit: new Cesium.Credit('天地图'),
             subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
-            tileMatrixLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
+            tilingScheme: new Cesium.GeographicTilingScheme(), //WebMercatorTilingScheme、GeographicTilingScheme
+            tileMatrixLabels: [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
         });
 
         // 添加天地图标注层
         const labelLayer = new Cesium.WebMapTileServiceImageryProvider({
-            url: 'https://t{s}.tianditu.gov.cn/cia_w/wmts?tk=afc12d79d5702d681aa3bee2c4e45e5a',
+            url: 'https://t{s}.tianditu.gov.cn/cia_c/wmts?tk=afc12d79d5702d681aa3bee2c4e45e5a',
             layer: "cia",
             style: "default",
             format: "tiles",
-            tileMatrixSetID: "w",
+            tileMatrixSetID: "c",
             maximumLevel: 18,
             credit: new Cesium.Credit('天地图注记'),
             subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
+            tilingScheme: new Cesium.GeographicTilingScheme(), //WebMercatorTilingScheme、GeographicTilingScheme
             tileMatrixLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
         });
 
         viewer.imageryLayers.addImageryProvider(imageryLayer);
         viewer.imageryLayers.addImageryProvider(labelLayer);
 
+        viewer.camera.setView({
+            destination: Cesium.Cartesian3.fromDegrees(116.397428, 39.90923, 10000000),
+            duration: 0
+        });
     </script>
 </body>
 </html>

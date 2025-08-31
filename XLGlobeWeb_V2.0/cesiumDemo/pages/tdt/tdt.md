@@ -1,46 +1,41 @@
-## 快速开始
+## Cesium添加天地图服务
 
-本文将带你迅速了解 XLGlobe javascript API 的基本使用，学习如何基于 XLGlobe JavaScript API
-开始地图应用的开发，使您在最短时间内成为 webgis 的开发者。
-最简单的方式是看一个简单的示例, 该示例帮助您快速了解XLGlobe API 的基本使用，快速创建一张“地图”。
+本文将介绍如何在Cesium中添加天地图服务，天地图是国家地理信息公共服务平台，提供了丰富的地图服务资源。通过集成天地图服务，可以为您的Cesium应用提供高质量的地图底图。
 
-## 第一个示例
+## 天地图服务类型
 
-``` html
-<!DOCTYPE html>
-<html lang="en">
+天地图提供了多种类型的地图服务：
+- **影像地图**：高分辨率的卫星影像
+- **矢量地图**：包含道路、地名等矢量要素
+- **地形地图**：显示地形起伏和地貌特征
+- **注记图层**：地名、道路名称等标注信息
 
-<head>
-    <meta charset="UTF-8">
-    <title>基础地图</title>
-    <script src="Cesium/Cesium.js"></script>
-    <script src="XLGlobe.js"></script>
-    <style type="text/css">
-        @import url(libs/Cesium1.130/Widgets/widgets.css);
-        @import url(libs/XLGlobe.css);
+## 添加天地图服务示例
 
-        html,
-        body,
-        #mapContainer {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="mapContainer"></div>
-    <script>
-        //初始化地图
-        var Globe = new XLGlobe.Globe("mapContainer");
-    </script>
-</body>
-
-</html>
+``` js
+        const imageryLayer = new Cesium.WebMapTileServiceImageryProvider({
+            url: 'https://t{s}.tianditu.gov.cn/img_c/wmts?tk=您的天地图密钥',
+            layer: "img",
+            style: "default",
+            format: "tiles",
+            tileMatrixSetID: "c",
+            maximumLevel: 18,
+            credit: new Cesium.Credit('天地图'),
+            subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
+            tilingScheme: new Cesium.GeographicTilingScheme(), //WebMercatorTilingScheme、GeographicTilingScheme
+            tileMatrixLabels: [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
+        });
 ```
+
+## 天地图服务配置说明
+天地图服务URL包含以下参数：
+- `SERVICE=WMTS`：服务类型为WMTS
+- `REQUEST=GetTile`：请求类型为获取瓦片
+- `VERSION=1.0.0`：服务版本
+- `LAYER=img/cia`：图层类型（img为影像，cia为注记）
+- `TILEMATRIXSET=w`：瓦片矩阵集
+- `FORMAT=tiles`：格式为瓦片
+
 
 ### 示例展示 <p align="right"><a href="#/deveditor?examplePath=/cesiumDemo/pages/tdt/tdt.html" target="_blank">Demo</a></p>
 
