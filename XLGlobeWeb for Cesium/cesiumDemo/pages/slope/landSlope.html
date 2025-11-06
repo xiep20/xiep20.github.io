@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地形坡度分析</title>
+    <script src="libs/Cesium1.130/Cesium.js"></script>
+    <script src="libs/turf.min.js"></script>
+    <script src="libs/delaunator.min.js"></script>
+    <link href="libs/Cesium1.130/Widgets/widgets.css" rel="stylesheet">
+    <style>
+        html, body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+        }
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .control-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background-color: rgba(42, 42, 42, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            min-width: 200px;
+        }
+        .control-panel h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .button {
+            width: 100%;
+            padding: 8px 16px;
+            margin: 5px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .button.cancel {
+            background-color: #f44336;
+        }
+        .button.cancel:hover {
+            background-color: #da190b;
+        }
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #555;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            text-align: center;
+            line-height: 20px;
+            font-size: 12px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .info-panel {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            background-color: rgba(42, 42, 42, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            max-width: 300px;
+        }
+        .legend {
+            margin-top: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 2px 0;
+            font-size: 12px;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border: 1px solid #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    <div class="control-panel">
+        <h3>坡度分析控制</h3>
+        <button id="drawPolygonButton" class="button">绘制分析区域</button>
+        <button id="analyzeButton" class="button" disabled>开始坡度分析</button>
+        <button id="clearButton" class="button cancel">清除分析结果</button>
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar">准备就绪</div>
+        </div>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background-color: #00FF00;"></div>平坡 (0°-2°)</div>
+            <div class="legend-item"><div class="legend-color" style="background-color: #80FF00;"></div>缓坡 (2°-5°)</div>
+            <div class="legend-item"><div class="legend-color" style="background-color: #FFFF00;"></div>微坡 (5°-8°)</div>
+            <div class="legend-item"><div class="legend-color" style="background-color: #FF8C00;"></div>中坡 (8°-15°)</div>
+            <div class="legend-item"><div class="legend-color" style="background-color: #FF4500;"></div>陡坡 (15°-25°)</div>
+            <div class="legend-item"><div class="legend-color" style="background-color: #FF0000;"></div>极陡坡 (25°以上)</div>
+        </div>
+    </div>
+    <div id="infoPanel" class="info-panel">
+        <p>点击「开始坡度分析」按钮进行地形坡度分析。分析完成后将显示坡度统计信息。</p>
+    </div>
+
+    <script type="module">
+        // 导入坡度分析工具
+        import LandSlopeAnalysisTool from '/cesiumDemo/pages/slope/landSlope.js';
+        
+        // 使用自执行async函数以支持await
+        (async function() {
+            // 初始化Cesium Viewer
+            Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMzc3Yjk4Yy00ZDEwLTQ3ZDktYTU3Mi05OWQwNmJjZjRlYjIiLCJpZCI6MzM1Nzg0LCJpYXQiOjE3NTYyODIwOTN9.9BZOXdLnOCtN4xn-QfEoH12Di3sDstPnPbPIep23X8s';
+            
+            const viewer = new Cesium.Viewer('cesiumContainer', {
+                baseLayerPicker: false,
+                geocoder: false,
+                homeButton: false,
+                fullscreenButton: false,
+                sceneModePicker: false,
+                navigationHelpButton: false,
+                animation: false,
+                timeline: false,
+                baseLayerPicker: false,
+                navigationInstructionsInitiallyVisible: false,
+                terrainProvider: await Cesium.createWorldTerrainAsync()
+            });
+            
+            // 全局变量
+            let drawingMode = false;
+            let polygonPoints = [];
+            let polygonEntity = null;
+            let polylineEntity = null;
+
+        // 添加天地图影像底图（无标注）
+        const imageryLayer = new Cesium.WebMapTileServiceImageryProvider({
+            url: 'https://t{s}.tianditu.gov.cn/img_c/wmts?tk=afc12d79d5702d681aa3bee2c4e45e5a',
+            layer: "img",
+            style: "default",
+            format: "tiles",
+            tileMatrixSetID: "c",
+            maximumLevel: 18,
+            credit: new Cesium.Credit('天地图'),
+            subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
+            tilingScheme: new Cesium.GeographicTilingScheme(), //WebMercatorTilingScheme、GeographicTilingScheme
+            tileMatrixLabels: [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
+        });
+
+        // 添加天地图标注层
+        const labelLayer = new Cesium.WebMapTileServiceImageryProvider({
+            url: 'https://t{s}.tianditu.gov.cn/cia_c/wmts?tk=afc12d79d5702d681aa3bee2c4e45e5a',
+            layer: "cia",
+            style: "default",
+            format: "tiles",
+            tileMatrixSetID: "c",
+            maximumLevel: 18,
+            credit: new Cesium.Credit('天地图注记'),
+            subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
+            tilingScheme: new Cesium.GeographicTilingScheme(), //WebMercatorTilingScheme、GeographicTilingScheme
+            tileMatrixLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
+        });
+
+        viewer.imageryLayers.addImageryProvider(imageryLayer);
+        viewer.imageryLayers.addImageryProvider(labelLayer);
+
+
+        // 定位到示例区域（我国西部山区）
+        viewer.camera.setView({
+            destination: Cesium.Cartesian3.fromDegrees(101.0, 31.0, 5000),
+            orientation: {
+                heading: Cesium.Math.toRadians(0),
+                pitch: Cesium.Math.toRadians(-45),
+                roll: 0.0
+            }
+        });
+        
+        // 创建坡度分析工具实例
+        let slopeTool = new LandSlopeAnalysisTool(viewer, {
+            maxSamplePoints: 4000,
+            sampleDistanceKm: 0.005,
+            visualizeMode: 'grid'  // 使用网格模式可视化
+        });
+window.parent.slopeTool = slopeTool
+        // 绘制多边形函数
+        function startDrawingPolygon() {
+            // 完全清除之前的所有内容
+            slopeTool.clearAnalysis();
+            viewer.entities.removeAll();
+            
+            // 重置状态
+            drawingMode = false;
+            polygonPoints = [];
+            polygonEntity = null;
+            polylineEntity = null;
+            drawingMode = true;
+            
+            document.getElementById('progressBar').textContent = '请在地图上点击绘制多边形（双击完成）';
+            document.getElementById('drawPolygonButton').disabled = true;
+            document.getElementById('analyzeButton').disabled = true;
+            
+            // 创建点击事件处理器
+            const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+            
+            // 鼠标移动事件 - 实时预览多边形
+            handler.setInputAction(function(movement) {
+                if (drawingMode && polygonPoints.length > 0) {
+                    const ray = viewer.camera.getPickRay(movement.endPosition);
+                    const position = viewer.scene.globe.pick(ray, viewer.scene);
+                    
+                    if (position) {
+                        const cartographic = Cesium.Cartographic.fromCartesian(position);
+                        const longitude = Cesium.Math.toDegrees(cartographic.longitude);
+                        const latitude = Cesium.Math.toDegrees(cartographic.latitude);
+                        
+                        // 创建临时多边形点集（包含当前鼠标位置）
+                        const tempPoints = [...polygonPoints, [longitude, latitude]];
+                        
+                        // 更新预览多边形
+                        updatePreviewPolygon(tempPoints);
+                    }
+                }
+            }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+            
+            // 左键点击事件 - 添加点
+            handler.setInputAction(function(movement) {
+                if (drawingMode) {
+                    const ray = viewer.camera.getPickRay(movement.position);
+                    const position = viewer.scene.globe.pick(ray, viewer.scene);
+                    
+                    if (position) {
+                        const cartographic = Cesium.Cartographic.fromCartesian(position);
+                        const longitude = Cesium.Math.toDegrees(cartographic.longitude);
+                        const latitude = Cesium.Math.toDegrees(cartographic.latitude);
+                        
+                        // 添加点
+                        polygonPoints.push([longitude, latitude]);
+                        
+                        // 创建点标记
+                        viewer.entities.add({
+                            position: Cesium.Cartesian3.fromDegrees(longitude, latitude),
+                            point: {
+                                pixelSize: 5,
+                                color: Cesium.Color.YELLOW,
+                                outlineColor: Cesium.Color.BLACK,
+                                outlineWidth: 2
+                            }
+                        });
+                        
+                        // 更新提示
+                        if (polygonPoints.length < 2) {
+                            document.getElementById('progressBar').textContent = `已添加 ${polygonPoints.length} 个点，请继续点击（双击完成）`;
+                        } else {
+                            document.getElementById('progressBar').textContent = `已添加 ${polygonPoints.length} 个点，请继续点击或双击完成`;
+                        }
+                    }
+                }
+            }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+            
+            // 双击事件 - 完成绘制
+            handler.setInputAction(function(movement) {
+                if (drawingMode && polygonPoints.length >= 3) {
+                    // 完成绘制，闭合多边形
+                    drawingMode = false;
+                    
+                    // 确保多边形闭合
+                    const firstPoint = polygonPoints[0];
+                    const lastPoint = polygonPoints[polygonPoints.length - 1];
+                    if (firstPoint[0] !== lastPoint[0] || firstPoint[1] !== lastPoint[1]) {
+                        polygonPoints.push([...firstPoint]);
+                    }
+                    
+                    // 创建最终多边形
+                    createPolygonEntity(polygonPoints);
+                    
+                    // 移除临时预览
+                    if (polylineEntity) {
+                        viewer.entities.remove(polylineEntity);
+                        polylineEntity = null;
+                    }
+                    
+                    // 更新UI
+                    document.getElementById('progressBar').textContent = `多边形绘制完成，共 ${polygonPoints.length - 1} 个顶点`;
+                    document.getElementById('drawPolygonButton').disabled = false;
+                    document.getElementById('analyzeButton').disabled = false;
+                    
+                    // 销毁事件处理器
+                    handler.destroy();
+                } else if (drawingMode && polygonPoints.length < 3) {
+                    document.getElementById('progressBar').textContent = '多边形至少需要3个点，请继续绘制';
+                }
+            }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+        }
+        
+        // 更新预览多边形
+        function updatePreviewPolygon(points) {
+            if (polylineEntity) {
+                viewer.entities.remove(polylineEntity);
+            }
+            
+            const positions = points.map(point => Cesium.Cartesian3.fromDegrees(point[0], point[1]));
+            
+            polylineEntity = viewer.entities.add({
+                polyline: {
+                    positions: positions,
+                    width: 2,
+                    material: new Cesium.PolylineDashMaterialProperty({
+                        color: Cesium.Color.YELLOW
+                    }),
+                    clampToGround: true
+                }
+            });
+        }
+        
+        // 创建多边形实体
+        function createPolygonEntity(points) {
+            if (polygonEntity) {
+                viewer.entities.remove(polygonEntity);
+            }
+            
+            const positions = points.map(point => Cesium.Cartesian3.fromDegrees(point[0], point[1]));
+            
+            polygonEntity = viewer.entities.add({
+                polygon: {
+                    hierarchy: new Cesium.PolygonHierarchy(positions),
+                    material: Cesium.Color.BLUE.withAlpha(0.3),
+                    outline: true,
+                    outlineColor: Cesium.Color.BLUE,
+                    outlineWidth: 2,
+                    clampToGround: true
+                }
+            });
+        }
+
+        // 更新进度条
+        function updateProgress(progress) {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = progress.progress + '%';
+            progressBar.textContent = progress.message;
+        }
+
+        // 更新信息面板
+        function updateInfoPanel(result) {
+            const infoPanel = document.getElementById('infoPanel');
+            if (result.success) {
+                const data = result.data[0];
+                infoPanel.innerHTML = `
+                    <h4>坡度分析结果</h4>
+                    <p>分析区域面积: ${(data.area / 1000000).toFixed(2)} 平方公里</p>
+                    <p>平均坡度: ${data.averageSlope.toFixed(2)}°</p>
+                    <p>主要坡度等级: ${data.dominantLevel.name}</p>
+                    <p>采样点数: ${data.samplePointsCount}</p>
+                    <p>分析点总数: ${result.totalPoints}</p>
+                `;
+            } else {
+                infoPanel.innerHTML = `<p>分析失败: ${result.message}</p>`;
+            }
+        }
+        
+        // 初始化信息面板
+        document.getElementById('infoPanel').innerHTML = '<p>点击「绘制分析区域」按钮在地图上绘制多边形，然后点击「开始坡度分析」进行分析。</p>';
+
+        // 绑定绘制多边形按钮事件
+        document.getElementById('drawPolygonButton').onclick = function() {
+            startDrawingPolygon();
+        };
+        
+        // 绑定开始分析按钮事件
+        document.getElementById('analyzeButton').onclick = function() {
+            if (polygonPoints.length < 3) {
+                document.getElementById('progressBar').textContent = '请先绘制有效的多边形区域';
+                return;
+            }
+            
+            // 禁用按钮防止重复点击
+            this.disabled = true;
+            
+            // 执行坡度分析
+            slopeTool.analyzeSlope(
+                polygonPoints, 
+                (result) => {
+                    // 启用按钮
+                    this.disabled = false;
+                    // 更新信息面板
+                    updateInfoPanel(result);
+                    console.log('坡度分析结果:', result);
+                },
+                updateProgress
+            );
+        };
+
+        // 绑定清除按钮事件
+        document.getElementById('clearButton').onclick = function() {
+            // 清除坡度分析结果
+            slopeTool.clearAnalysis();
+            
+            // 清除绘制的多边形
+            if (polygonEntity) {
+                viewer.entities.remove(polygonEntity);
+                polygonEntity = null;
+            }
+            if (polylineEntity) {
+                viewer.entities.remove(polylineEntity);
+                polylineEntity = null;
+            }
+            
+            // 清除所有点标记
+            viewer.entities.removeAll();
+            
+            // 重置状态
+            drawingMode = false;
+            polygonPoints = [];
+            
+            // 更新UI
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '0%';
+            progressBar.textContent = '准备就绪';
+            const infoPanel = document.getElementById('infoPanel');
+            infoPanel.innerHTML = '<p>点击「绘制分析区域」按钮在地图上绘制多边形，然后点击「开始坡度分析」进行分析。</p>';
+            document.getElementById('drawPolygonButton').disabled = false;
+            document.getElementById('analyzeButton').disabled = true;
+        };
+
+        // 清理函数
+        function cleanup() {
+            if (slopeTool) {
+                slopeTool.destroy();
+            }
+        }
+
+        // 页面卸载时清理资源
+        window.addEventListener('beforeunload', cleanup);
+        
+    })();
+    </script>
+</body>
+</html>
